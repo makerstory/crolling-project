@@ -4,7 +4,7 @@ on:
   schedule:
     # 매일 한국 시간 오전 9시 (UTC 0시) 실행 설정 예시
     # cron 문법: '분 시 일 월 요일' (UTC 기준)
-    - cron: '0 10 * * *' 
+    - cron: '5 170 * * *' 
   workflow_dispatch: # 수동 실행 버튼 활성화
 
 jobs:
