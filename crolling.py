@@ -8,8 +8,8 @@ import os
 # --- 설정 구간 ---
 TARGET_URL = "https://www.gbe.kr/gs/na/ntt/selectNttList.do?mi=19265&bbsId=2577"  # 크롤링 할 사이트 주소
 KEYWORDS = ["채용", "모집", "공고", "늘봄"]
-BOT_TOKEN = os.environ.get('BOT_TOKEN') # 텔레그램 봇 토큰
-CHAT_ID = os.environ.get('CHAT_ID') # 본인의 챗 ID
+BOT_TOKEN = "8541608617:AAGLWW1Meg5YovqqmhQzjQ9kSH_d2YwMNlY" # 텔레그램 봇 토큰 os.environ.get('BOT_TOKEN')
+CHAT_ID = 8460700603 # 본인의 챗 ID os.environ.get('CHAT_ID')
 DATA_FILE = "sent_posts.json" # 중복 방지용 데이터 저장 파일
 
 # --- 알림 발송 함수 (텔레그램) ---
