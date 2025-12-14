@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import time
-import schedule
+#import schedule
 import json
 import os
 
@@ -44,27 +44,25 @@ def check_new_posts():
         response = requests.get(TARGET_URL)
         response.encoding = 'utf-8' # 인코딩 명시적 지정
         soup = BeautifulSoup(response.text, 'html.parser')
-        
-        # [게시물 리스트 선택] 게시물 전체 리스트 (tr 태그들의 리스트)를 가져옵니다.
-        post_elements = soup.select(".board_list tr")
 
+        # [게시물 리스트 선택] 게시물 전체 리스트 (tr 태그들의 리스트)를 가져옵니다.
+        post_elements = soup.select(".BD_list tr")
         sent_posts = load_sent_posts()
         new_posts_found = False
 
         for post in post_elements:
             # post (tr 태그) 안에서 모든 td 태그를 리스트로 추출합니다.
             td_elements = post.find_all("td")
-            
             # td 태그가 2개 이상 존재하는 경우에만 (게시물 데이터일 경우) 처리
-            if len(td_elements) < 2:
+            if len(td_elements) < 3:
                 continue
 
             # 1. 제목 및 링크 추출: 첫 번째 <td> (td_elements[0]) 안에서 <a> 태그를 찾습니다.
-            title_tag = td_elements[0].find("a") 
+            title_tag = td_elements[1].find("a") 
             
             # 2. 작성자 추출: 두 번째 <td> (td_elements[1])의 텍스트를 가져옵니다.
             # get_text(strip=True)를 사용하여 불필요한 공백과 개행 문자를 제거합니다.
-            author = td_elements[1].get_text(strip=True)
+            author = td_elements[2].get_text(strip=True)
 
             if not title_tag:
                 continue
@@ -100,18 +98,18 @@ def check_new_posts():
                     new_posts_found = True
         
         if new_posts_found:
-            save_sent_posts(sent_posts)
+           save_sent_posts(sent_posts)
             
     except Exception as e:
         print(f"에러 발생: {e}")
 
 # --- 스케줄링 실행 ---
 # 1시간마다 실행
-schedule.every(24).hours.do(check_new_posts)
+#schedule.every(24).hours.do(check_new_posts)
 
 # 테스트를 위해 즉시 한 번 실행
 check_new_posts()
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+#while True:
+#    schedule.run_pending()
+#    time.sleep(1)
